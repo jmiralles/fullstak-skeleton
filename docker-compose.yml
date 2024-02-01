@@ -18,12 +18,16 @@ services:
     command: npm run dev
     
   react-typescript-docker:
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://localhost:3003
     build:
       context: ./client
       dockerfile: Dockerfile.dev
     container_name: react-typescript-docker
     volumes:
       - ./client/src:/app/src
+      - /app/node_modules
     ports:
       - "3000:3000"
     depends_on:
