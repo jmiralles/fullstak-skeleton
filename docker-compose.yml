@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  express-typescript-docker:
+    environment:
+      - NODE_ENV=development
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: express-typescript-docker
+    volumes:
+      - ./server/src:/app/src
+    expose:
+      - "3003"
+    ports:
+      - "3003:3003"
+      - "9229:9229"
+    command: npm run dev
+    
+  react-typescript-docker:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: react-typescript-docker
+    volumes:
+      - ./client/src:/app/src
+    ports:
+      - "3000:3000"
+    depends_on:
+      - express-typescript-docker
