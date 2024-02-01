@@ -1,2 +1,14 @@
 
-GET http://localhost:3000/todos
+GET http://localhost:3003/todos
+
+
+###
+
+POST http://localhost:3003/todos
+content-type: application/json
+
+{
+    "name": "Learn Node.js",
+    "completed": false
+}
+
