@@ -8,7 +8,7 @@ export async function deleteTodoController(
 ): Promise<void> {
   try {
     await deleteTodo(request.params.id);
-    response.sendStatus(404);
+    response.sendStatus(204);
   } catch (error) {
     next(error);
   }
