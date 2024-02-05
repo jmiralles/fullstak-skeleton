@@ -16,19 +16,38 @@ services:
       - "3003:3003"
       - "9229:9229"
     command: npm run dev
+
+  nextjs-typescript-docker:
+    environment:
+      - NODE_ENV=development
+    build:
+      context: ./nextjs
+      dockerfile: Dockerfile.dev
+    container_name: nextjs-typescript-docker
+    restart: always
+    volumes:
+      - ./nextjs:/app
+      - /app/node_modules
+    expose:
+      - "3002"
+    ports:
+      - "3002:3002"
     
   react-typescript-docker:
     environment:
       - NODE_ENV=development
-      - API_URL=http://localhost:3003
+      - API_URL=http://localhost:5173
     build:
       context: ./client
       dockerfile: Dockerfile.dev
     container_name: react-typescript-docker
     volumes:
       - ./client/src:/app/src
-      - /app/node_modules
+    expose:
+      - "5173"
     ports:
-      - "3000:3000"
+      - "5173:5173"
     depends_on:
       - express-typescript-docker
+
+ 
