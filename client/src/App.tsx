@@ -1,18 +1,20 @@
-import React from "react";
-import { Routes, BrowserRouter, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
+import "./App.css";
+import useTodos from "./hooks/useTodos";
 
 function App() {
+  const { todos } = useTodos();
+
   return (
-    <BrowserRouter>
-      <Navbar />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+    <>
+      <div className="card">
+        <h1>Todo List</h1>
+        <ul>
+          {todos.map((todo: { id: number; name: string }) => (
+            <li key={todo.id}>{todo.name}</li>
+          ))}
+        </ul>
       </div>
-    </BrowserRouter>
+    </>
   );
 }
 
