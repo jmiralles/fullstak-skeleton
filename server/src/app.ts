@@ -13,7 +13,9 @@ app.use(express.json({ limit: "1mb" }));
 app.use("/openapi.json", serveOpenapiSpec);
 
 // Mount the `/todos` resource
-app.use("/todos", todoRoute);
+app.use("/api/todos", todoRoute);
+
+app.use("/api/health", (req, res) => res.sendStatus(200));
 
 app.use(sendErrorResponse);
 
