@@ -13,12 +13,12 @@ docker-compose up --build
 - [x] Server hot reload
 - [x] Server Debug on Docker
 - [x] Client hot reload
+- [X] Redis
+- [X] Open API validation
 - [ ] Compose docker for production
-- [ ] Add Database
+- [ ] Add SQL Database
 - [ ] Testing
-- [ ] Open API validation
 - [ ] Logging
 - [ ] Makefile
 - [ ] Auth
 - [ ] Config management
-

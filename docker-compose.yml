@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  express-typescript-docker:
+  express_container:
     environment:
       - NODE_ENV=development
     build:
       context: ./server
       dockerfile: Dockerfile.dev
-    container_name: express-typescript-docker
+    container_name: express_container
     volumes:
       - ./server/src:/app/src
     expose:
@@ -17,13 +17,13 @@ services:
       - "9229:9229"
     command: npm run dev
 
-  nextjs-typescript-docker:
+  nextjs_container:
     environment:
       - NODE_ENV=development
     build:
       context: ./nextjs
       dockerfile: Dockerfile.dev
-    container_name: nextjs-typescript-docker
+    container_name: nextjs_container
     restart: always
     volumes:
       - ./nextjs:/app
@@ -32,15 +32,18 @@ services:
       - "3002"
     ports:
       - "3002:3002"
+    depends_on:
+      - cache
+      - express_container
     
-  react-typescript-docker:
+  client_container:
     environment:
       - NODE_ENV=development
       - API_URL=http://localhost:5173
     build:
       context: ./client
       dockerfile: Dockerfile.dev
-    container_name: react-typescript-docker
+    container_name: client_container
     volumes:
       - ./client/src:/app/src
     expose:
@@ -48,6 +51,18 @@ services:
     ports:
       - "5173:5173"
     depends_on:
-      - express-typescript-docker
+      -  nextjs_container
 
+  cache:
+    image: redis:latest
+    command: redis-server
+    restart: always
+    volumes:
+      - cache:/data
+    ports:
+      - 6379:6379
+
+volumes:
+  cache:
+    driver: local
  

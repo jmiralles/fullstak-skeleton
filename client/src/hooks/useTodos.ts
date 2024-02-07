@@ -6,11 +6,13 @@ const useHooks = () => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    fetch(baseUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        setTodos(data.data);
-      });
+    async function fetchTodos() {
+      const response = await fetch(baseUrl);
+      const data = await response.json();
+      setTodos(data.data);
+    }
+
+    fetchTodos();
   }, []);
 
   return { todos };
